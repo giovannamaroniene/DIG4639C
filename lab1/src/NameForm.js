@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 class NameForm extends React.Component {
       constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {
+          value: '',
+          nameAvailable: '',
+          isValid: true,
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
       }
 
       handleChange(event) {
@@ -14,8 +19,11 @@ class NameForm extends React.Component {
 
       handleSubmit(event){
         if (/[a-zA-Z]+/.test(this.state.value)) {
-          this.setState({isValid:true})
-        };
+          this.setState({isValid:true});
+          this.setState({nameAvailable:true});
+        } else {
+          this.setState({isValid:false});
+        }
 
         event.preventDefault();
       }
@@ -25,10 +33,11 @@ class NameForm extends React.Component {
 
         return (
           <form onSubmit={this.handleSubmit}>
-            <lable>
-              Name:
+            <label>
+              Your name:
                 <input typer="text" value={this.state.value} onChange={this.handleChange} />
-            </lable>
+                {(this.state.isValid)?(null):(<p style={{color:"red"}}>error</p>)}
+            </label>
             <input type="submit" value="submit" />
           </form>
         );
