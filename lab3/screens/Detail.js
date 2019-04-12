@@ -13,25 +13,23 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+export default class Detail extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
   render() { const {navigate} = this.props.navigation;
+    const params = this.props.navigation.params;
     return (<View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.getStartedContainer}>
-        <Text style={styles.getStartedText}>Cats the Website! (Not to be confused with the musical)</Text>
         <FlatList              data={[{key: 'cat1',
-                     image: require('../assets/images/cat1.png')},
-                    {key: 'cat2',
-                     image: require('../assets/images/cat2.png')},
-                     {key: 'cat3',
-                      image: require('../assets/images/cat3.jpg')}]}
+                     image: require('../assets/images/maxresdefault.jpg')},
+                    ]}
              keyExtractor={this._keyExtractor}
               renderItem={({item}) => <TouchableOpacity onPress={(event) => navigate('Detail')}>
                 <Image source={item.image} style={{width:200,height:200}} />
+                <Text style={styles.getStartedText}>Full Size Image</Text>
               </TouchableOpacity>}
             />
           </View>
