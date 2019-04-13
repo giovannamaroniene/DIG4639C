@@ -1,85 +1,61 @@
 import React from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image,Platform,ScrollView,StyleSheet,Text,TouchableOpacity,FlatList,View } from 'react-native';
 import { WebBrowser } from 'expo';
-
 import { MonoText } from '../components/StyledText';
+import { Detail } from '../screens/Detail';
+import { createStackNavigator } from 'react-navigation';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
-  render() { const {navigate} = this.props.navigation;
-    return (<View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.getStartedContainer}>
-        <Text style={styles.getStartedText}>Cats the Website! (Not to be confused with the musical)</Text>
-        <FlatList              data={[{key: 'cat1',
-                     image: require('../assets/images/cat1.png')},
-                    {key: 'cat2',
-                     image: require('../assets/images/cat2.png')},
-                     {key: 'cat3',
-                      image: require('../assets/images/cat3.jpg')}]}
-             keyExtractor={this._keyExtractor}
-              renderItem={({item}) => <TouchableOpacity onPress={(event) => navigate('Detail')}>
-                <Image source={item.image} style={{width:200,height:200}} />
-              </TouchableOpacity>}
-            />
-          </View>
-        </ScrollView>
-      </View>
-    );
-  }
-
-
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
-}
+  render() {
+    const {navigate} = this.props.navigation;
+    return (
+      <View style={styles.container}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+          <View style={styles.getStartedContainer}>
+           <Text style={styles.getStartedText}>Cats the Website! (Not to be confused with the musical)</Text>
+            <FlatList
+             data={[
+                   {key: 'cat1',
+                    image: require('../assets/images/cat1.png'),
+                    title:'TITLE 1',
+                    author:"By THIS PERSON 1"},
+                   {key: 'cat2',
+                    image: require('../assets/images/cat2.png'),
+                    title:'TITLLE 2',
+                    author:"By THIS PERSON 2"},
+                   {key: 'cat3',
+                    image: require('../assets/images/cat3.jpg'),
+                    title:'TITLE 3',
+                    author:"By THIS PERSON 3"}
+                  ]}
+                 keyExtractor={this._keyExtractor}
+                 renderItem={({item}) => <TouchableOpacity onPress={() => navigate("Detail",{ catName:item.key, catImage:item.image, catTitle:item.title, catAuthor:item.author  })}>
+               <Image source={item.image} style={styles.image} />
+               <Text style={{textAlign:"center", fontSize: 20}}>{item.title}</Text>
+               <Text style={{textAlign:"center", marginBottom:30}}>{item.author}</Text>
+             </TouchableOpacity>}
+           />
+        </View>
+      </ScrollView>
+    </View>
+     );
+   }
+ }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  image: {
+    borderRadius:22,
+    width:300,
+    height:300,
+    margin:"5%",
   },
   developmentModeText: {
     marginBottom: 20,
@@ -105,7 +81,7 @@ const styles = StyleSheet.create({
   },
   getStartedContainer: {
     alignItems: 'center',
-    marginHorizontal: 50,
+    marginHorizontal: 10,
   },
   homeScreenFilename: {
     marginVertical: 7,
@@ -119,9 +95,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   getStartedText: {
-    fontSize: 17,
+    marginTop: 40,
+    padding:15,
+    fontSize: 25,
     color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
+    lineHeight: 34,
     textAlign: 'center',
   },
   tabBarInfoContainer: {
