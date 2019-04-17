@@ -16,24 +16,24 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-           <Text style={styles.getStartedText}>Cats the Website! (Not to be confused with the musical)</Text>
+           <Text style={styles.getStartedText}>Famous Renaissance Paitnings</Text>
             <FlatList
              data={[
-                   {key: 'cat1',
-                    image: require('../assets/images/cat1.png'),
-                    title:'TITLE 1',
-                    author:"By THIS PERSON 1"},
-                   {key: 'cat2',
-                    image: require('../assets/images/cat2.png'),
-                    title:'TITLLE 2',
-                    author:"By THIS PERSON 2"},
-                   {key: 'cat3',
-                    image: require('../assets/images/cat3.jpg'),
-                    title:'TITLE 3',
-                    author:"By THIS PERSON 3"}
+                   {key: 'painting1',
+                    image: require('../assets/images/adam.jpg'),
+                    title:'Creation of Adam',
+                    author:"By Michelangelo"},
+                   {key: 'painting2',
+                    image: require('../assets/images/mona.jpg'),
+                    title:'Mona Lisa',
+                    author:"By Leonardo da Vinci"},
+                   {key: 'painting3',
+                    image: require('../assets/images/venus.jpg'),
+                    title:'Birth of Venus',
+                    author:"By Botticelli"}
                   ]}
                  keyExtractor={this._keyExtractor}
-                 renderItem={({item}) => <TouchableOpacity onPress={() => navigate("Detail",{ catName:item.key, catImage:item.image, catTitle:item.title, catAuthor:item.author  })}>
+                 renderItem={({item}) => <TouchableOpacity onPress={() => navigate("Detail",{ paintingName:item.key, paintingImage:item.image, paintingTitle:item.title, paintingAuthor:item.author  })}>
                <Image source={item.image} style={styles.image} />
                <Text style={{textAlign:"center", fontSize: 20}}>{item.title}</Text>
                <Text style={{textAlign:"center", marginBottom:30}}>{item.author}</Text>
