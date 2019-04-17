@@ -9,9 +9,9 @@ export default class Detail extends React.Component {
   };
 
   render() {
-    const passedImage = this.props.navigation.getParam("catImage", "defaultValue");
-    const passedTitle = this.props.navigation.getParam("catTitle", "defaultValue");
-    const passedAuthor = this.props.navigation.getParam("catAuthor", "defaultValue");
+    const passedImage = this.props.navigation.getParam("paintingImage", "defaultValue");
+    const passedTitle = this.props.navigation.getParam("paintingTitle", "defaultValue");
+    const passedAuthor = this.props.navigation.getParam("paintingAuthor", "defaultValue");
     return (
       <View style={styles.container}>
         <Image source={passedImage} style={{width:"100%",height:"60%",margin:'5%'}}/>
