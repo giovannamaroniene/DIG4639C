@@ -24,7 +24,7 @@ export default class HomeScreen extends React.Component {
                     title:'Creation of Adam',
                     author:"By Michelangelo"},
                    {key: 'painting2',
-                    image: require('../assets/images/mona.jpg'),
+                    image: require('../assets/images/monalisa.jpg'),
                     title:'Mona Lisa',
                     author:"By Leonardo da Vinci"},
                    {key: 'painting3',
