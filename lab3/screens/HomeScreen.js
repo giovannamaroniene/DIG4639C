@@ -1,47 +1,65 @@
-import React from 'react';
-import { Image,Platform,ScrollView,StyleSheet,Text,TouchableOpacity,FlatList,View } from 'react-native';
-import { WebBrowser } from 'expo';
-import { MonoText } from '../components/StyledText';
-import { Detail } from '../screens/Detail';
-import { createStackNavigator } from 'react-navigation';
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  AppRegistry,
+  Dimensions,
+  TextInput
+} from 'react-native';
 
-export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
+
+import ImageElement from '../components/ImageElement';
+
+export default class PaintingSearch extends Component {
+
+    state = {
+      images: [
+        {title:'Creation of Adam', author:"By Michelangelo", image: require('../assets/images/adam.jpg')},
+        {title:'Mona Lisa', author:"By Leonardo da Vinci", image: require('../assets/images/monalisa.jpg')},
+        {title:'Birth of Venus', author:"By Botticelli", image: require('../assets/images/venus.jpg')},
+        {title:'The Duke and Duchess of Urbino', author:"By Piero della Francesca", image: require('../assets/images/duke.jpg')},
+        {title:'Madonna del Prato', author:"By Raphael", image: require('../assets/images/madonna.jpg')},
+        {title:'The Last Supper', author:"By Leonardo da Vinci", image: require('../assets/images/supper.jpg')},
+      ],
+      imagesReference: [],
+      text: '',
+    }
+    componentDidMount() {
+      this.setState({imagesReference: this.state.images});
+    }
+
+  search(text){
+    this.setState({text: text});
+    let imgArr= this.state.images;
+
+    for (var i = 0; i < imgArr.length; i++) {
+      if (text === imgArr[i].title) {
+        this.setState({images: [imgArr[i] ] })
+      }
+    }
+    if (!text) {
+      this.setState({images:this.state.imagesReference})
+    }
+  }
 
   render() {
-    const {navigate} = this.props.navigation;
+
+    let images = this.state.images.map((val, key) => {
+      return <View key={key} style={styles.imagewrap}>
+      <ImageElement imgsource={val.img}/>
+      </View>
+    });
+
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.getStartedContainer}>
-           <Text style={styles.getStartedText}>Famous Renaissance Paitnings</Text>
-            <FlatList
-             data={[
-                   {key: 'painting1',
-                    image: require('../assets/images/adam.jpg'),
-                    title:'Creation of Adam',
-                    author:"By Michelangelo"},
-                   {key: 'painting2',
-                    image: require('../assets/images/monalisa.jpg'),
-                    title:'Mona Lisa',
-                    author:"By Leonardo da Vinci"},
-                   {key: 'painting3',
-                    image: require('../assets/images/venus.jpg'),
-                    title:'Birth of Venus',
-                    author:"By Botticelli"}
-                  ]}
-                 keyExtractor={this._keyExtractor}
-                 renderItem={({item}) => <TouchableOpacity onPress={() => navigate("Detail",{ paintingName:item.key, paintingImage:item.image, paintingTitle:item.title, paintingAuthor:item.author  })}>
-               <Image source={item.image} style={styles.image} />
-               <Text style={{textAlign:"center", fontSize: 20}}>{item.title}</Text>
-               <Text style={{textAlign:"center", marginBottom:30}}>{item.author}</Text>
-             </TouchableOpacity>}
-           />
+        <TextInput style={styles.textinput} underlineColorAndroid='transparent' placeholder='search painting'
+        onChangeText={ (text) => this.search(text)} value={this.state.text}/>
+
+        <View style={styles.photogrid}>
+          {images}
         </View>
-      </ScrollView>
-    </View>
+      </View>
      );
    }
  }
@@ -49,96 +67,27 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#252525'
+  },
+  textinput:{
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 8,
+    padding: 10,
     backgroundColor: '#fff',
   },
-  image: {
-    borderRadius:22,
-    width:300,
-    height:300,
-    margin:"5%",
+  photogrid: {
+    flex: 1,
+    padding: 2,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    marginTop: 40,
-    padding:15,
-    fontSize: 25,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 34,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+  imagewrap:{
+    padding: 2,
+    height: 120,
+    width: (Dimensions.get('window').width / 2) - 2,
+  }
+
 });
+
+AppRegistry.registerComponent('PaintingSearch', () => PaintingSearch);
