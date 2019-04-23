@@ -15,12 +15,12 @@ export default class PaintingSearch extends Component {
 
     state = {
       images: [
-        {title:'Creation of Adam', author:"By Michelangelo", image: require('../assets/images/adam.jpg')},
-        {title:'Mona Lisa', author:"By Leonardo da Vinci", image: require('../assets/images/monalisa.jpg')},
-        {title:'Birth of Venus', author:"By Botticelli", image: require('../assets/images/venus.jpg')},
-        {title:'The Duke and Duchess of Urbino', author:"By Piero della Francesca", image: require('../assets/images/duke.jpg')},
-        {title:'Madonna del Prato', author:"By Raphael", image: require('../assets/images/madonna.jpg')},
-        {title:'The Last Supper', author:"By Leonardo da Vinci", image: require('../assets/images/supper.jpg')},
+        {title:'Creation of Adam', author:"By Michelangelo", image: require('../assets/images/adam.png')},
+        {title:'Mona Lisa', author:"By Leonardo da Vinci", image: require('../assets/images/monalisa.png')},
+        {title:'Birth of Venus', author:"By Botticelli", image: require('../assets/images/venus.png')},
+        {title:'The Duke and Duchess of Urbino', author:"By Piero della Francesca", image: require('../assets/images/duke.png')},
+        {title:'Madonna del Prato', author:"By Raphael", image: require('../assets/images/madonna.png')},
+        {title:'The Last Supper', author:"By Leonardo da Vinci", image: require('../assets/images/supper.png')},
       ],
       imagesReference: [],
       text: '',
