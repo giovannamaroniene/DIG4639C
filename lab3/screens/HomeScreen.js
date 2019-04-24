@@ -5,7 +5,7 @@ import {
   View,
   AppRegistry,
   Dimensions,
-  TextInput
+  TextInput,
 } from 'react-native';
 
 
@@ -47,7 +47,7 @@ export default class PaintingSearch extends Component {
 
     let images = this.state.images.map((val, key) => {
       return <View key={key} style={styles.imagewrap}>
-      <ImageElement imgsource={val.img}/>
+      <ImageElement imgsource={val.image}/>
       </View>
     });
 
